@@ -1,4 +1,99 @@
-import birdsData from './birds.js'
+import birdsDataRu from './js/birds-ru.js';
+import birdsDataEn from './js/birds-en.js';
+import {createGallery} from './js/create-gallery.js';
+import { createLevels } from './js/levels.js';
+import levelTranslateEn from './js/level-translate-en.js';
+import levelTranslateRu from './js/level-translate-ru.js';
+
+
+// lang switcher and localStore saves
+export let language = 'en';
+export let birdsData;
+export let levelsData;
+
+const languageHeaderText = document.querySelector('.language')
+const preloadText = document.querySelector('.preload__text')
+const preloadButton = document.querySelector('.preload__button')
+const galleryButton = document.querySelector('.gallery-button')
+const galleryButtonBack = document.querySelector('.button-gallery')
+const gameScore = document.querySelector('.score')
+const startGameText = document.querySelector('.listen-player')
+const buttonNextLvl = document.querySelector('.button-next')
+const resultPageGreeting = document.querySelector('.result-page__title')
+const resultPageScore = document.querySelector('.result-page__score')
+const resultPageButton = document.querySelector('.restart-game')
+
+if(localStorage.getItem('language') === null){
+  localStorage.setItem('language', language);
+}
+
+language = localStorage.getItem('language');
+
+function setBirdsData() {
+  if (language === 'ru') {
+    birdsData = birdsDataRu;
+    levelsData = levelTranslateRu
+    preloadText.innerText = 'Вы готовы?'
+    preloadButton.innerText = 'Начать викторину!'
+    languageHeaderText.innerText = 'Язык:'
+    galleryButton.innerText = 'Венутся к игре'
+    galleryButtonBack.innerText = 'Галерея'
+    gameScore.innerText = 'Результат:'
+    buttonNextLvl.innerText = 'Слудующий уровень'
+    startGameText.innerText = 'Послушайте плеер и выберите птицу из списка'
+    resultPageGreeting.innerText = 'Поздравляем!'
+    resultPageScore.innerText = 'Ваш результат:'
+    resultPageButton.innerText = 'Сыграть еще'
+  } else {
+    birdsData = birdsDataEn;
+    levelsData = levelTranslateEn
+    preloadText.innerText = 'Are you ready?'
+    preloadButton.innerText = 'Go Quiz!'
+    languageHeaderText.innerText = 'Language:'
+    galleryButton.innerText = 'Back to quiz'
+    galleryButtonBack.innerText = 'Gallery'
+    gameScore.innerText = 'Score:'
+    buttonNextLvl.innerText = 'Next level'
+    startGameText.innerText = 'Listen to the player and Select a bird from the list'
+    resultPageGreeting.innerText = 'Congratulation!'
+    resultPageScore.innerText = 'You score:'
+    resultPageButton.innerText = 'Play Again'
+  }
+}
+
+setBirdsData();
+
+const languageButton = document.getElementById('language-button');
+
+if (localStorage.language === undefined) {
+  languageButton.innerHTML = 'en'
+} else if (languageButton.classList.value === language) {
+  languageButton.innerHTML = `${language}`
+} else if (languageButton.classList.value !== language) {
+  languageButton.innerHTML = `${language}`
+}
+
+languageButton.addEventListener('click', () => {
+  if (languageButton.classList.value === language) {
+    languageButton.classList.remove('en');
+    languageButton.classList.add('ru');
+    language = 'ru';
+    setBirdsData();
+    window.location.reload()
+  } else if (languageButton.classList.value !== language) {
+    languageButton.classList.add('en');
+    languageButton.classList.remove('ru');
+    language = 'en';
+    setBirdsData();
+    window.location.reload()
+    
+  }
+
+  localStorage.setItem('language', language);
+});
+
+createGallery()
+createLevels()
 
 // PRELOAD
 const mainPage = document.querySelector('.container')
@@ -10,7 +105,6 @@ const footer = document.querySelector('.footer')
 // GALLRY <-> MAIN
 const galleryPage = document.querySelector('.container-galery')
 const mainButton = document.querySelector('.main-button')
-const galleryButton = document.querySelector('.gallery-button')
 
 // PRELOAD BUTTON -> START QUIZ
 startButton.addEventListener('click', () => {
@@ -44,7 +138,6 @@ const birdNameRu = document.querySelector('.bird-name__ru');
 const birdNameEng = document.querySelector('.bird-name__en');
 const birdSelected = document.querySelector('.selected-bird');
 const descriptionBird = document.querySelector('.bird-description__main');
-const buttonNextLvl = document.querySelector('.button-next')
 const instruction = document.querySelector('.instruction')
 const detailsBirds = document.querySelector('.wrapper-details')
 const birdSelectedList = document.querySelectorAll('.bird-list__item')
@@ -59,6 +152,7 @@ const resultPage = document.querySelector('.result-page')
 const birdChoice = document.querySelector('.bird-wrapper')
 
 let totalScore = [];
+
 
 
 const createList = (level) => {
@@ -103,10 +197,10 @@ const createList = (level) => {
         randomBirdImage.src = warm[index].image;
         birdName.innerHTML = warm[index].name;
         buttonNextLvl.classList.add('active')
-        
+
         totalScore.push(countScore)
         score.innerHTML = countScore;
-        scoreResult.innerHTML = totalScore.reduce((acc, num) => acc + num, 0);;
+        scoreResult.innerHTML = totalScore.reduce((acc, num) => acc + num, 0);
 
         dot.classList.add('won');
         document.getElementById("button-next").disabled = false;
