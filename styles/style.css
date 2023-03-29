@@ -9,7 +9,7 @@ html {
   width: 10px;
 }
 
-::-webkit-scrollbar-track{
+::-webkit-scrollbar-track {
   background-color: #303030;
 }
 
@@ -125,6 +125,7 @@ html {
   display: flex;
   align-items: center;
   align-content: center;
+  flex-wrap: wrap;
   justify-content: space-between;
   margin-bottom: 20px;
 }
@@ -136,9 +137,48 @@ html {
   background-size: contain;
   background-repeat: no-repeat;
 }
+
+.header-language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.language {
+  font-size: 20px;
+}
+
+#language-button {
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  background-color: var(--blocks);
+  border: 1px solid var(--border);
+  font-size: 20px;
+  border-radius: 5px;
+  color: #fff;
+  transition: 0.2s;
+}
+#language-button:hover {
+  background-color: var(--green);
+  border: 1px solid var(--blocks);
+}
+
 @media (max-width: 700px) {
   .logo {
+    width: 150px;
     height: 40px;
+  }
+  .language {
+    font-size: 16px;
+  }
+  #language-button {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+  .button-gallery {
+    margin-top: 30px;
   }
 }
 
@@ -182,6 +222,8 @@ html {
   color: var(--green);
   text-align: end;
   transition: all 0.2s ease;
+  font-size: 35px;
+  line-height: 1;
 }
 
 .go-top:hover {
@@ -219,10 +261,15 @@ html {
   transition: 0.2s;
 }
 
+.score__wrapper{
+  display: flex;
+}
+
 .score {
   width: 100%;
   text-align: end;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
+  margin-right: 5px;
 }
 
 /* RANDOM BIRAD SECTION */
@@ -262,11 +309,20 @@ html {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,  -50%);
+  transform: translate(-50%, -50%);
 }
 
 .result-page__title {
   font-size: 32px;
+}
+
+.result__wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.result-page__score {
+  margin-right: 10px;
 }
 
 .restart-game {
@@ -281,7 +337,7 @@ html {
   transition: all 0.2s ease;
 }
 
-.restart-game:hover{
+.restart-game:hover {
   background: var(--green-border);
 }
 
@@ -392,8 +448,6 @@ html {
 .bird-selection {
   position: relative;
   width: 100%;
-  /* padding-right: 15px; */
-  /* padding-left: 15px; */
 }
 
 .bird-list__item {
@@ -406,7 +460,7 @@ html {
 
 @media (max-width: 1000px) {
   .bird-list__item {
-    padding: 25px;
+    padding: 33px;
   }
 }
 @media (max-width: 700px) {
@@ -662,7 +716,7 @@ html {
 
 .gallery-item {
   width: 49%;
-  min-height: 100%;
+  /* min-height: 100%; */
   border: solid 1px var(--border);
   background-color: var(--blocks);
   padding: 15px;
@@ -676,6 +730,16 @@ html {
   .gallery-item {
     width: 100%;
     margin: 0 auto 20px;
+  }
+  .button-next {
+    order: 1;
+    margin: 0;
+  }
+  .selection-right {
+    order: 2;
+  }
+  .bird-details {
+    margin-bottom: 20px;
   }
 }
 
